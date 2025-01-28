@@ -30,13 +30,13 @@ def create_animation(frequency, wavelength, amplitude, speed, filename='animatio
         return line,
 
     def update(frame):
-        t = frame / 20.0
+        t = frame / 10.0  # Mengurangi jumlah frame
         y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
         x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
         line.set_data(x_disp, y)
         return line,
 
-    ani = animation.FuncAnimation(fig, update, frames=200, init_func=init, interval=50, blit=True)
+    ani = animation.FuncAnimation(fig, update, frames=100, init_func=init, interval=50, blit=True)  # Mengurangi jumlah frame menjadi 100
 
     if not os.path.exists(STATIC_FOLDER):
         os.makedirs(STATIC_FOLDER)
