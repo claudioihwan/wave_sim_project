@@ -1,55 +1,53 @@
 from flask import Flask, render_template, request, send_from_directory
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 import os
-import logging
 
 app = Flask(__name__)
 STATIC_FOLDER = 'static'
 
-logging.basicConfig(level=logging.DEBUG)
-
 def wave_func(x, t, speed, frequency, wavelength, amplitude):
     return amplitude * np.sin(2 * np.pi * frequency * (x / wavelength - speed * t))
 
-def save_static_image(frequency, wavelength, amplitude, speed, filename='static_image.png'):
-    try:
-        logging.debug(f"Parameters received: frequency={frequency}, wavelength={wavelength}, amplitude={amplitude}, speed={speed}")
-        num_coils = 20
-        x = np.linspace(0, 4 * np.pi, 1000)
+def create_animation(frequency, wavelength, amplitude, speed, filename='animation.gif'):
+    num_coils = 20
+    x = np.linspace(0, 4 * np.pi, 1000)
 
-        fig, ax = plt.subplots()
-        ax.set_xlim(0, 4 * np.pi)
-        ax.set_ylim(-1, 1)
+    fig, ax = plt.subplots()
+    ax.set_xlim(0, 4 * np.pi)
+    ax.set_ylim(-1, 1)
+    line, = ax.plot([], [], lw=2)
 
-        t = 0
+    def init():
+        line.set_data([], [])
+        return line,
+
+    def update(frame):
+        t = frame / 20.0
         y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
         x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
-        ax.plot(x_disp, y, lw=2)
+        line.set_data(x_disp, y)
+        return line,
 
-        if not os.path.exists(STATIC_FOLDER):
-            os.makedirs(STATIC_FOLDER)
+    ani = animation.FuncAnimation(fig, update, frames=200, init_func=init, interval=50, blit=True)
 
-        fig.savefig(os.path.join(STATIC_FOLDER, filename))
-        plt.close(fig)
+    if not os.path.exists(STATIC_FOLDER):
+        os.makedirs(STATIC_FOLDER)
 
-        return filename
-    except Exception as e:
-        logging.error(f"Error in save_static_image: {e}")
-        raise
+    ani.save(os.path.join(STATIC_FOLDER, filename), writer='imagemagick')
+    plt.close(fig)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     img = None
     if request.method == 'POST':
-        try:
-            frequency = float(request.form['frequency'])
-            wavelength = float(request.form['wavelength'])
-            amplitude = float(request.form['amplitude'])
-            speed = float(request.form['speed'])
-            img = save_static_image(frequency, wavelength, amplitude, speed)
-        except Exception as e:
-            logging.error(f"Error in home route: {e}")
+        frequency = float(request.form['frequency'])
+        wavelength = float(request.form['wavelength'])
+        amplitude = float(request.form['amplitude'])
+        speed = float(request.form['speed'])
+        create_animation(frequency, wavelength, amplitude, speed)
+        img = 'animation.gif'
     return render_template('index.html', img=img)
 
 @app.route('/static/<path:filename>')
