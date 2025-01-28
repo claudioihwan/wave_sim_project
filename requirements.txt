@@ -1,1 +1,6 @@
 Flask
+numpy
+matplotlib
+PIL
+io
+base64
