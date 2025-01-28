@@ -48,7 +48,7 @@ def create_animation():
 
     ani = animation.FuncAnimation(fig, update, frames=200, init_func=init, interval=50, blit=True)
 
-    plt.show()
+    plt.show() 
 
 create_animation()
 
