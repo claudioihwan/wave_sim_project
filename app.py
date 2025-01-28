@@ -2,27 +2,36 @@ import matplotlib
 matplotlib.use('Agg')
 
 from flask import Flask, render_template, request, send_from_directory
+import os
+import logging
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import os
-import logging
 
 app = Flask(__name__)
 STATIC_FOLDER = 'static'
 
-logging.basicConfig(level=logging.DEBUG)
+# Parameter gelombang
+frequency = 0.8  # Frekuensi gelombang
+wavelength = 2     # Panjang gelombang
+amplitude = 0.2    # Amplitudo, dikurangi untuk tampilan yang lebih baik
+speed = 0.8        # Kecepatan gelombang
 
+# Parameter untuk pegas
+num_coils = 20     # Jumlah lilitan pegas
+x = np.linspace(0, 4 * np.pi, 1000)  # Posisi x sepanjang pegas
+
+# Fungsi gelombang longitudinal
 def wave_func(x, t, speed, frequency, wavelength, amplitude):
     return amplitude * np.sin(2 * np.pi * frequency * (x / wavelength - speed * t))
 
-def create_animation(frequency, wavelength, amplitude, speed, filename='animation.gif'):
-    num_coils = 20
-    x = np.linspace(0, 4 * np.pi, 1000)
-
+# Fungsi untuk membuat animasi pegas
+def create_animation():
     fig, ax = plt.subplots()
     ax.set_xlim(0, 4 * np.pi)
-    ax.set_ylim(-1, 1)
+    ax.set_ylim(-10, 10)
     line, = ax.plot([], [], lw=2)
 
     def init():
@@ -30,21 +39,18 @@ def create_animation(frequency, wavelength, amplitude, speed, filename='animatio
         return line,
 
     def update(frame):
-        t = frame / 10.0  # Mengurangi jumlah frame
+        t = frame / 20.0
+        # Perpindahan longitudinal sesuai dengan fungsi gelombang
         y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
         x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
         line.set_data(x_disp, y)
         return line,
 
-    ani = animation.FuncAnimation(fig, update, frames=100, init_func=init, interval=50, blit=True)  # Mengurangi jumlah frame menjadi 100
+    ani = animation.FuncAnimation(fig, update, frames=200, init_func=init, interval=50, blit=True)
 
-    if not os.path.exists(STATIC_FOLDER):
-        os.makedirs(STATIC_FOLDER)
+    plt.show()
 
-    gif_path = os.path.join(STATIC_FOLDER, filename)
-    ani.save(gif_path, writer='imagemagick')
-    plt.close(fig)
-    logging.debug(f"GIF saved at {gif_path}")
+create_animation()
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
