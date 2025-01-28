@@ -3,25 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gambar Pegas Statis</title>
+    <title>Animasi Pegas</title>
 </head>
 <body>
-    <h1>Gambar Pegas Statis</h1>
-    <form method="post">
-        <label for="frequency">Frekuensi:</label>
-        <input type="text" id="frequency" name="frequency" required><br><br>
-        <label for="wavelength">Panjang Gelombang:</label>
-        <input type="text" id="wavelength" name="wavelength" required><br><br>
-        <label for="amplitude">Amplitudo:</label>
-        <input type="text" id="amplitude" name="amplitude" required><br><br>
-        <label for="speed">Kecepatan:</label>
-        <input type="text" id="speed" name="speed" required><br><br>
-        <input type="submit" value="Generate Image">
-    </form>
-    {% if img %}
-        <h2>Hasil Gambar:</h2>
-        <img src="{{ url_for('static_file', filename=img) }}" alt="Gambar Pegas">
-    {% endif %}
+    <h1>Animasi Pegas</h1>
+    <img src="data:image/gif;base64,{{ img }}" alt="Animasi Pegas">
 </body>
 </html>
+
 
