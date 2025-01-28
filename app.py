@@ -1,65 +1,49 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, send_from_directory
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import io
-import base64
-from PIL import Image
+import os
 
 app = Flask(__name__)
-
-frequency = 0.8  # Frekuensi gelombang
-wavelength = 2     # Panjang gelombang
-amplitude = 0.2    # Amplitudo, dikurangi untuk tampilan yang lebih baik
-speed = 0.8        # Kecepatan gelombang
-num_coils = 20     # Jumlah lilitan pegas
-x = np.linspace(0, 4 * np.pi, 1000)  # Posisi x sepanjang pegas
+STATIC_FOLDER = 'static'
 
 def wave_func(x, t, speed, frequency, wavelength, amplitude):
     return amplitude * np.sin(2 * np.pi * frequency * (x / wavelength - speed * t))
 
-def create_animation():
+def save_static_image(frequency, wavelength, amplitude, speed, filename='static_image.png'):
+    num_coils = 20
+    x = np.linspace(0, 4 * np.pi, 1000)
+
     fig, ax = plt.subplots()
     ax.set_xlim(0, 4 * np.pi)
-    ax.set_ylim(-10, 10)
-    line, = ax.plot([], [], lw=2)
+    ax.set_ylim(-1, 1)
 
-    def init():
-        line.set_data([], [])
-        return line,
+    t = 0
+    y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
+    x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
+    ax.plot(x_disp, y, lw=2)
 
-    def update(frame):
-        t = frame / 20.0
-        y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
-        x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
-        line.set_data(x_disp, y)
-        return line,
+    if not os.path.exists(STATIC_FOLDER):
+        os.makedirs(STATIC_FOLDER)
 
-    ani = animation.FuncAnimation(fig, update, frames=200, init_func=init, interval=50, blit=True)
+    fig.savefig(os.path.join(STATIC_FOLDER, filename))
+    plt.close(fig)
 
-    # Simpan frame animasi sebagai gambar
-    frames = []
-    for i in range(200):
-        update(i)
-        buf = io.BytesIO()
-        fig.savefig(buf, format='png')
-        buf.seek(0)
-        img = Image.open(buf)
-        frames.append(img)
+    return filename
 
-    # Simpan sebagai GIF menggunakan Pillow
-    buf = io.BytesIO()
-    frames[0].save(buf, format='GIF', save_all=True, append_images=frames[1:], loop=0, duration=50)
-    buf.seek(0)
-    img = base64.b64encode(buf.read()).decode('utf-8')
-    plt.close(fig)  # Menutup plt untuk menghemat memori
-    return img
-
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    img = create_animation()
+    img = None
+    if request.method == 'POST':
+        frequency = float(request.form['frequency'])
+        wavelength = float(request.form['wavelength'])
+        amplitude = float(request.form['amplitude'])
+        speed = float(request.form['speed'])
+        img = save_static_image(frequency, wavelength, amplitude, speed)
     return render_template('index.html', img=img)
+
+@app.route('/static/<path:filename>')
+def static_file(filename):
+    return send_from_directory(STATIC_FOLDER, filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
