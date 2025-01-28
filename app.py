@@ -1,50 +1,42 @@
-from flask import Flask, render_template, request, send_from_directory
 import numpy as np
 import matplotlib.pyplot as plt
-import os
+import matplotlib.animation as animation
 
-app = Flask(__name__)
-STATIC_FOLDER = 'static'
+# Parameter gelombang
+frequency = 0.8  # Frekuensi gelombang
+wavelength = 2     # Panjang gelombang
+amplitude = 0.2    # Amplitudo, dikurangi untuk tampilan yang lebih baik
+speed = 0.8        # Kecepatan gelombang
 
+# Parameter untuk pegas
+num_coils = 20     # Jumlah lilitan pegas
+x = np.linspace(0, 4 * np.pi, 1000)  # Posisi x sepanjang pegas
+
+# Fungsi gelombang longitudinal
 def wave_func(x, t, speed, frequency, wavelength, amplitude):
     return amplitude * np.sin(2 * np.pi * frequency * (x / wavelength - speed * t))
 
-def save_static_image(frequency, wavelength, amplitude, speed, filename='static_image.png'):
-    num_coils = 20
-    x = np.linspace(0, 4 * np.pi, 1000)
-
+# Fungsi untuk membuat animasi pegas
+def create_animation():
     fig, ax = plt.subplots()
     ax.set_xlim(0, 4 * np.pi)
-    ax.set_ylim(-1, 1)
+    ax.set_ylim(-10, 10)
+    line, = ax.plot([], [], lw=2)
 
-    t = 0
-    y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
-    x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
-    ax.plot(x_disp, y, lw=2)
+    def init():
+        line.set_data([], [])
+        return line,
 
-    if not os.path.exists(STATIC_FOLDER):
-        os.makedirs(STATIC_FOLDER)
+    def update(frame):
+        t = frame / 20.0
+        # Perpindahan longitudinal sesuai dengan fungsi gelombang
+        y = np.sin(num_coils * x + wave_func(x, t, speed, frequency, wavelength, amplitude))
+        x_disp = x + wave_func(x, t, speed, frequency, wavelength, amplitude)
+        line.set_data(x_disp, y)
+        return line,
 
-    fig.savefig(os.path.join(STATIC_FOLDER, filename))
-    plt.close(fig)
+    ani = animation.FuncAnimation(fig, update, frames=200, init_func=init, interval=50, blit=True)
 
-    return filename
+    plt.show()
 
-@app.route('/', methods=['GET', 'POST'])
-def home():
-    img = None
-    if request.method == 'POST':
-        frequency = float(request.form['frequency'])
-        wavelength = float(request.form['wavelength'])
-        amplitude = float(request.form['amplitude'])
-        speed = float(request.form['speed'])
-        img = save_static_image(frequency, wavelength, amplitude, speed)
-    return render_template('index.html', img=img)
-
-@app.route('/static/<path:filename>')
-def static_file(filename):
-    return send_from_directory(STATIC_FOLDER, filename)
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+create_animation()
