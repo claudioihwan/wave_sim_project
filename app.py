@@ -1,11 +1,17 @@
+import matplotlib
+matplotlib.use('Agg')
+
 from flask import Flask, render_template, request, send_from_directory
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import os
+import logging
 
 app = Flask(__name__)
 STATIC_FOLDER = 'static'
+
+logging.basicConfig(level=logging.DEBUG)
 
 def wave_func(x, t, speed, frequency, wavelength, amplitude):
     return amplitude * np.sin(2 * np.pi * frequency * (x / wavelength - speed * t))
@@ -35,19 +41,24 @@ def create_animation(frequency, wavelength, amplitude, speed, filename='animatio
     if not os.path.exists(STATIC_FOLDER):
         os.makedirs(STATIC_FOLDER)
 
-    ani.save(os.path.join(STATIC_FOLDER, filename), writer='imagemagick')
+    gif_path = os.path.join(STATIC_FOLDER, filename)
+    ani.save(gif_path, writer='imagemagick')
     plt.close(fig)
+    logging.debug(f"GIF saved at {gif_path}")
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     img = None
     if request.method == 'POST':
-        frequency = float(request.form['frequency'])
-        wavelength = float(request.form['wavelength'])
-        amplitude = float(request.form['amplitude'])
-        speed = float(request.form['speed'])
-        create_animation(frequency, wavelength, amplitude, speed)
-        img = 'animation.gif'
+        try:
+            frequency = float(request.form['frequency'])
+            wavelength = float(request.form['wavelength'])
+            amplitude = float(request.form['amplitude'])
+            speed = float(request.form['speed'])
+            create_animation(frequency, wavelength, amplitude, speed)
+            img = 'animation.gif'
+        except Exception as e:
+            logging.error(f"Error in home route: {e}")
     return render_template('index.html', img=img)
 
 @app.route('/static/<path:filename>')
