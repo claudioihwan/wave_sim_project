@@ -36,7 +36,7 @@ def create_animation(frequency, wavelength, amplitude, speed, filename='animatio
         line.set_data(x_disp, y)
         return line,
 
-    ani = animation.FuncAnimation(fig, update, frames=100, init_func=init, interval=50, blit=True)  # Mengurangi jumlah frame menjadi 100
+    ani = animation.FuncAnimation(fig, update, frames=50, init_func=init, interval=50, blit=True)  # Mengurangi jumlah frame menjadi 50
 
     if not os.path.exists(STATIC_FOLDER):
         os.makedirs(STATIC_FOLDER)
