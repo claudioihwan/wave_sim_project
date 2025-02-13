@@ -10,7 +10,7 @@ def layout(content = "", script = ""):
         </style>
       </head>
       <body>
-        <div class="w-full min-h-screen flex flex-col items-center justify-center bg-[url(https://cdn.pixabay.com/photo/2021/11/15/16/23/background-6798652_1280.jpg)] text-white md:p-4" style="font-family: 'Poppins', sans-serif;">
+        <div class="w-full min-h-screen flex flex-col items-center justify-center bg-[url(https://cdn.pixabay.com/photo/2020/07/31/03/34/planet-5451866_960_720.jpg)] bg-no-repeat text-white md:p-4" style="font-family: 'Poppins', sans-serif;">
           {content}
           <a href="/" class="w-full text-center font-bold mt-10">Kembali ke Home</a>
         </div>
