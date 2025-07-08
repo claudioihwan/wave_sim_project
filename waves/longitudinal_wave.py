@@ -32,8 +32,8 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
       line_1, = ax.plot([], [], 'b-', lw=2, label=f'y1')
       line_2, = ax.plot([], [], 'r-', lw=2, label=f'y2')
       ax.legend()
-      plt.grid(color='k', linestyle='-', linewidth=1)
-      plt.grid()
+      plt.grid(True, color='k', linestyle='-', linewidth=1)
+
      
 
       def update(frame):
