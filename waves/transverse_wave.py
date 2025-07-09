@@ -25,7 +25,10 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   ax.set_xlabel('t')
   ax.set_ylabel('y')
   ax.set_title('Animasi Gelombang Transversal')
-  ax.set_xticks(np.arange(0,10,1))
+  ax.set_xticks(np.arange(0,20,1))
+  ax.set_xlim(0,20)
+  ax.set_yticks(np.arange(0,20,1))
+  ax.set_ylim(0,20)
   ax.legend()
   plt.grid(True, color='k', linestyle='-', linewidth=0.5)
 
