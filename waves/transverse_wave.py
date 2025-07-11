@@ -25,7 +25,7 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   ax.set_ylabel('y')
   ax.set_title('Animasi Gelombang Transversal')
   ax.set_xticks(np.arange(-12,12,1))
-  ax.set_xlim(-12,12)
+  ax.set_xlim(0,12)
   ax.set_yticks(np.arange(-12,12,1))
   ax.set_ylim(-12,12)
   ax.set_aspect('equal', adjustable='box')
