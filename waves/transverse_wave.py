@@ -20,6 +20,7 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   y_2 = A_2 * A_1 * np.sin(k_2 * x - W_2 * t) - 4
   line_y_1, = ax.plot(x, y_1, 'b-', linewidth=2, label=f'y1')
   line_y_2, = ax.plot(x, y_2, 'r-', linewidth=2, label=f'y2')
+  line_y_2.set_position([0.2, 0.2, 0.8, 0.8])
   #ax.set_xlim(0, 4 * np.pi)
   ax.set_xlabel('t')
   ax.set_ylabel('y')
