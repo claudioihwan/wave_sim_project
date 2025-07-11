@@ -31,6 +31,7 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   ax.set_ylim(0,12)
   ax.set_aspect('equal', adjustable='box')
   ax.legend()
+  plt.tight_layout()
   plt.grid(True, color='k', linestyle='-', linewidth=0.5)
 
 
