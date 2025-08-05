@@ -29,8 +29,9 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   ax.set_yticks(np.arange(-5,5,1))
   ax.set_ylim(-5,5)
   ax.set_aspect('equal', adjustable='box')
+  fig.set_constrained_layout(True)
   
-  #ax.set_aspect('equal', adjustable='box')
+  
   ax.legend()
   plt.grid(True, color='k', linestyle='-', linewidth=0.5)
   
@@ -48,6 +49,7 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   plt.show()
 
   return html
+
 
 
 
