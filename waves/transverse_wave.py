@@ -25,9 +25,9 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   ax.set_xlabel('t')
   ax.set_ylabel('y')
   ax.set_title('Animasi Gelombang Transversal')
-  ax.set_xticks(np.arange(0,12,2))
+  ax.set_xticks(np.arange(0,14,1))
   ax.set_xlim(0,12)
-  ax.set_yticks(np.arange(-12,12,2))
+  ax.set_yticks(np.arange(-12,12,1))
   #custom_labels = [-'12','-11','-10','-9','-8','-7','-6','-5','-4','-3','2','1','0','1', '2', '3', '4','5','6','7','8','9','10','11','12']
   #ax.set_yticklabels(custom_labels)
   ax.set_ylim(-12,12)
@@ -49,3 +49,4 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   html = ani.to_jshtml()
 
   return html
+
