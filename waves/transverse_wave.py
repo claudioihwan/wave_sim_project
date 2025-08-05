@@ -28,7 +28,6 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   ax.set_xlim(0,15)
   ax.set_yticks(np.arange(-5,5,1))
   ax.set_ylim(-5,5)
-  ax.set_box_aspect(1)
   ax.set_aspect('equal', adjustable='box')
   
   #ax.set_aspect('equal', adjustable='box')
@@ -49,6 +48,7 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   plt.show()
 
   return html
+
 
 
 
