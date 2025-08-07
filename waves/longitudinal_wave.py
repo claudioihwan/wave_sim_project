@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, frequency_2 = 0.8, wavelength_1 = 2, wavelength_2 = 2, speed_1 = 0.8, speed_2 = 0.8):
+def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, frequency_2 = 0.8, wavelength_1 = 2, wavelength_2 = 2, speed_1 = 0.8, speed_2 = 0.8, grid max=10):
   # Parameter gelombang
   frequency_1 = float(frequency_1) # Frekuensi gelombang
   frequency_2 = float(frequency_2) # Frekuensi gelombang
@@ -24,11 +24,13 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
   # Fungsi untuk membuat animasi pegas
   def create_animation():
       fig, ax = plt.subplots()
-      #ax.set_xlim(0, 4 * np.pi)
+  
       ax.set_xlim(0, 10)
       ax.set_ylim(-5, 5)
       ax.set_xlabel('t')
       ax.set_ylabel('y')
+      ax.set_xticks(np.arange(0,grid_max+1,1))
+      ax.set_yticks(np.arange(-5,5,1))
       ax.set_title('Animasi Gelombang Longitudinal')
       line_1, = ax.plot([], [], 'b-', lw=2, label=f'y1')
       line_2, = ax.plot([], [], 'r-', lw=2, label=f'y2')
@@ -56,6 +58,7 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
