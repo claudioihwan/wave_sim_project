@@ -26,7 +26,7 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
       fig, ax = plt.subplots()
       #ax.set_xlim(0, 4 * np.pi)
       ax.set_xlim(0, 10)
-      ax.set_ylim(-10, 10)
+      ax.set_ylim(-5, 5)
       ax.set_xlabel('t')
       ax.set_ylabel('y')
       ax.set_title('Animasi Gelombang Longitudinal')
@@ -34,7 +34,7 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
       line_2, = ax.plot([], [], 'r-', lw=2, label=f'y2')
       ax.legend()
       ax.set_aspect('auto', adjustable='box')
-      fig.set_constrained_layout(True)
+      fig.tight_layout()
       plt.grid(True, color='k', linestyle='-', linewidth=0.5)
 
      
@@ -56,6 +56,7 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
