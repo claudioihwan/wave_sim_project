@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, frequency_2 = 0.8, wavelength_1 = 2, wavelength_2 = 2, speed_1 = 0.8, speed_2 = 0.8, grid max=10):
+def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, frequency_2 = 0.8, wavelength_1 = 2, wavelength_2 = 2, speed_1 = 0.8, speed_2 = 0.8, grid_max=10):
   # Parameter gelombang
   frequency_1 = float(frequency_1) # Frekuensi gelombang
   frequency_2 = float(frequency_2) # Frekuensi gelombang
@@ -58,6 +58,7 @@ def longitudinal_wave(amplitude_1 = 0.2, amplitude_2 = 0.2, frequency_1 = 0.8, f
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
