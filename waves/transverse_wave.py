@@ -16,8 +16,8 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   A_1 = float(amplitude_1)
   A_2 = float(amplitude_2)
   
-  y_1 = A_1 * np.sin(k_1 * x - W_1 * t) + 1
-  y_2 = A_2 * np.sin(k_2 * x - W_2 * t) - 1
+  y_1 = A_1 * np.sin(k_1 * x - W_1 * t) + 2
+  y_2 = A_2 * np.sin(k_2 * x - W_2 * t) - 2
   line_y_1, = ax.plot(x, y_1, 'b-', linewidth=2, label=f'y1')
   line_y_2, = ax.plot(x, y_2, 'r-', linewidth=2, label=f'y2')
   
@@ -40,8 +40,8 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   # Fungsi update animasi
   def update(frame):
       time = frame / 30
-      line_y_1.set_ydata(A_1 * np.sin(k_1 * x - W_1 * (t + frame / 5.0)) + 1) # Mempercepat pergerakan
-      line_y_2.set_ydata(A_2 * np.sin(k_2 * x - W_2 * time) - 1)# Mempercepat pergerakan
+      line_y_1.set_ydata(A_1 * np.sin(k_1 * x - W_1 * (t + frame / 5.0)) + 2) # Mempercepat pergerakan
+      line_y_2.set_ydata(A_2 * np.sin(k_2 * x - W_2 * time) - 2)# Mempercepat pergerakan
       return line_y_1, line_y_2
 
   # Membuat animasi
@@ -50,6 +50,7 @@ def transverse_wave(amplitude_1, amplitude_2, frequency_1, frequency_2, waveleng
   plt.show()
 
   return html
+
 
 
 
