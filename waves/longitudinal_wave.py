@@ -34,8 +34,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       ax.set_xticks(np.arange(0,grid_max+1,1))
       ax.set_yticks(np.arange(-5,5,1))
       ax.set_title('Animasi Gelombang Longitudinal')
-      line_1, = ax.plot([], [], 'b-', lw=2, label=f'y1')
-      line_2, = ax.plot([], [], 'r-', lw=2, label=f'y2')
+      line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
+      line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
       ax.legend()
       ax.set_aspect('equal', adjustable='box')
       fig.tight_layout()
@@ -58,8 +58,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           u2 = amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
           
           # Bentuk pegas: sinus kecil untuk memberi efek lilitan
-          y_shape_1 = 0.2 * np.sin(20 * np.pi * x_base / wavelength_1) + 4
-          y_shape_2 = 0.2 * np.sin(20 * np.pi * x_base / wavelength_2) - 4
+          y_shape_1 = 0.4 * np.sin(20 * np.pi * x_base / wavelength_1) + 4
+          y_shape_2 = 0.4 * np.sin(20 * np.pi * x_base / wavelength_2) - 4
           
           # Geser titik pegas di arah x sesuai gelombang longitudinal
           x_disp_1 = x_base + u1
@@ -77,6 +77,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
