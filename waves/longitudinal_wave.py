@@ -44,22 +44,34 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
-          t = frame / 20.0
-          # Perpindahan longitudinal sesuai dengan fungsi gelombang
-          y_1 = np.sin(num_coils_1 * x + wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)) + 4
-          x_disp_1 = x + wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)
-          line_1.set_data(x_disp_1, y_1)
+        t = frame / 20.0
+    
+        # Faktor lilitan fisik sesuai λ
+        coil_factor_1 = (2 * np.pi / wavelength_1)
+        coil_factor_2 = (2 * np.pi / wavelength_2)
+    
+        # Pergeseran longitudinal
+        disp_1 = wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)
+        disp_2 = wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)
+    
+        # Pegas 1
+        y_1 = np.sin(coil_factor_1 * x) + 4
+        x_disp_1 = x + disp_1
+        line_1.set_data(x_disp_1, y_1)
+    
+        # Pegas 2
+        y_2 = np.sin(coil_factor_2 * x) - 4
+        x_disp_2 = x + disp_2
+        line_2.set_data(x_disp_2, y_2)
 
-          y_2 = np.sin(num_coils_2 * x + wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)) - 4
-          x_disp_2 = x + wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)
-          line_2.set_data(x_disp_2, y_2)
+        return line_1, line_2
 
-          return line_1, line_2
 
       ani = animation.FuncAnimation(fig, update, frames=200, interval=50, blit=True)
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
