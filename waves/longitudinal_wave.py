@@ -44,28 +44,32 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
-        t = frame / 20.0
-    
-        # Bilangan gelombang (rad/satuan)
-        k1 = 2 * np.pi / wavelength_1
-        k2 = 2 * np.pi / wavelength_2
-    
-        # Pergeseran longitudinal (arah x)
-        disp_1 = amplitude_1 * np.sin(k1 * x - 2 * np.pi * frequency_1 * t)
-        disp_2 = amplitude_2 * np.sin(k2 * x - 2 * np.pi * frequency_2 * t)
-    
-        # Bentuk dasar pegas (rapatan tetap setiap λ)
-        y_1 = np.sin(k1 * x) + 4
-        y_2 = np.sin(k2 * x) - 4
-    
-        # Geser titik-titik pegas sesuai disp
-        x_disp_1 = x + disp_1
-        x_disp_2 = x + disp_2
-    
-        line_1.set_data(x_disp_1, y_1)
-        line_2.set_data(x_disp_2, y_2)
-    
-        return line_1, line_2
+          t = frame / 20.0
+          
+          # Bilangan gelombang (rad/satuan) langsung dari λ
+          k1 = 2 * np.pi / wavelength_1
+          k2 = 2 * np.pi / wavelength_2
+          
+          # Posisi x dasar (pegas lurus)
+          x_base = x
+          
+          # Pergeseran longitudinal (maju-mundur sepanjang x)
+          u1 = amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
+          u2 = amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
+          
+          # Bentuk pegas: sinus kecil untuk memberi efek lilitan
+          y_shape_1 = 0.2 * np.sin(20 * np.pi * x_base / wavelength_1) + 4
+          y_shape_2 = 0.2 * np.sin(20 * np.pi * x_base / wavelength_2) - 4
+          
+          # Geser titik pegas di arah x sesuai gelombang longitudinal
+          x_disp_1 = x_base + u1
+          x_disp_2 = x_base + u2
+          
+          # Update data
+          line_1.set_data(x_disp_1, y_shape_1)
+          line_2.set_data(x_disp_2, y_shape_2)
+          
+          return line_1, line_2
 
 
 
@@ -73,6 +77,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
