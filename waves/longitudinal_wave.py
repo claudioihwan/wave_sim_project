@@ -44,11 +44,13 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       def update(frame):
           t = frame / 20.0
           # Perpindahan longitudinal sesuai dengan fungsi gelombang
-          y_1 = np.sin(num_coils * x + wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)) + 4
+          #y_1 = np.sin(num_coils * x + wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)) + 4
+          y_1 = np.sin((2 * np.pi / wavelength_1) * x + wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)) + 4
           x_disp_1 = x + wave_func(x, t, speed_1, frequency_1, wavelength_1, amplitude_1)
           line_1.set_data(x_disp_1, y_1)
 
-          y_2 = np.sin(num_coils * x + wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)) - 4
+          #y_2 = np.sin(num_coils * x + wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)) - 4
+          y_2 = np.sin((2 * np.pi / wavelength_2) * x + wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)) - 4
           x_disp_2 = x + wave_func(x, t, speed_2, frequency_2, wavelength_2, amplitude_2)
           line_2.set_data(x_disp_2, y_2)
 
@@ -58,6 +60,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
