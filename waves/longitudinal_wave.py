@@ -56,14 +56,15 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           # Pergeseran longitudinal (maju-mundur sepanjang x)
           u1 = amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
           u2 = amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
-          
-          # Bentuk pegas: sinus kecil untuk memberi efek lilitan
-          y_shape_1 = 0.2 * np.sin(20 * np.pi * x_base / wavelength_1) + 4
-          y_shape_2 = 0.2 * np.sin(20 * np.pi * x_base / wavelength_2) - 4
-          
-          # Geser titik pegas di arah x sesuai gelombang longitudinal
+
+                  # Geser titik pegas di arah x sesuai gelombang longitudinal
           x_disp_1 = x_base + u1
           x_disp_2 = x_base + u2
+        
+          # Bentuk pegas: sinus kecil untuk memberi efek lilitan
+          y_shape_1 = 0.3 * np.sin(20 * np.pi * x_disp_1 / wavelength_1) + 4
+          y_shape_2 = 0.3 * np.sin(20 * np.pi * x_disp_2 / wavelength_2) - 4
+          
           
           # Update data
           line_1.set_data(x_disp_1, y_shape_1)
@@ -77,6 +78,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
