@@ -69,11 +69,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           x_disp_2 = x_base + u2
         
           # Bentuk pegas: sinus kecil untuk memberi efek lilitan
-            coil_density = 8  # makin besar makin rapat
+            coil_density = 8 
             y_shape_1 = 0.4 * np.sin(coil_density * k1 * x_disp_1) + 2
             y_shape_2 = 0.4 * np.sin(coil_density * k2 * x_disp_2) - 2
-          #y_shape_1 = 0.3 * np.sin(20 * np.pi * x_disp_1 / wavelength_1) + 4
-          #y_shape_2 = 0.3 * np.sin(20 * np.pi * x_disp_2 / wavelength_2) - 4
+            #y_shape_1 = 0.3 * np.sin(20 * np.pi * x_disp_1 / wavelength_1) + 4
+            #y_shape_2 = 0.3 * np.sin(20 * np.pi * x_disp_2 / wavelength_2) - 4
           
           
           # Update data
@@ -91,6 +91,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
