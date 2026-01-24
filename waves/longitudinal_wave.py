@@ -75,7 +75,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           line_1.set_data(x_disp_1, y_shape_1)
           line_2.set_data(x_disp_2, y_shape_2)
           
-          return points_1, points_2
+          return line_1, line_2
 
 
 
@@ -84,6 +84,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_html5_video()
   
   return create_animation()
+
 
 
 
