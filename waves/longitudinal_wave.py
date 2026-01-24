@@ -48,48 +48,31 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
-          t = frame / 20.0 * 0.3
-          
-          # Bilangan gelombang (rad/satuan) langsung dari λ
+          t = frame * 0.02   # lebih lambat & stabil
+      
           k1 = 2 * np.pi / wavelength_1
           k2 = 2 * np.pi / wavelength_2
-          
-          # Posisi x dasar (pegas lurus)
-          x_base = x
-          
-          # Pergeseran longitudinal (maju-mundur sepanjang x)
-          omega1 = speed_1 * k1
-          omega2 = speed_2 * k2
+      
+          omega1 = 2 * np.pi * frequency_1
+          omega2 = 2 * np.pi * frequency_2
+      
+          # simpangan longitudinal (KECIL!)
+          dx1 = 0.3 * amplitude_1 * np.sin(k1 * x0 - omega1 * t)
+          dx2 = 0.3 * amplitude_2 * np.sin(k2 * x0 - omega2 * t)
+      
+          # posisi aktual = posisi setimbang + simpangan
+          x1 = x0 + dx1
+          x2 = x0 + dx2
+      
+          # Y tetap → ini kunci anti "bukit-lembah"
+          y1 = np.zeros_like(x1) + 4
+          y2 = np.zeros_like(x2) - 4
+      
+          points_1.set_offsets(np.c_[x1, y1])
+          points_2.set_offsets(np.c_[x2, y2])
 
-          u1 = 0.8* amplitude_1 * np.sin(k1 * x_base - omega1 * t)
-          u2 = 0.8* amplitude_2 * np.sin(k2 * x_base - omega2 * t)
-
-
-          #u1 = 0.2*amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
-          #u2 = 0.2*amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
-
-          # Geser titik pegas di arah x sesuai gelombang longitudinal
-          x_disp_1 = x_base + u1
-          x_disp_2 = x_base + u2
-        
-          # Bentuk pegas: sinus kecil untuk memberi efek lilitan
-
-          #y_shape_1 = 0.4 * np.sin(coil_freq * x_disp_1) + 4
-          #y_shape_2 = 0.4 * np.sin(coil_freq * x_disp_2) - 4
-          y_shape_1 = np.zeros_like(x_disp_1) + 4 + jitter
-          y_shape_2 = np.zeros_like(x_disp_2) - 4 + jitter
-
-          #y_shape_1 = 0.3 * np.sin(20 * np.pi * x_disp_1 / wavelength_1) + 4
-          #y_shape_2 = 0.3 * np.sin(20 * np.pi * x_disp_2 / wavelength_2) - 4
-          
-          
-          # Update data
-          points_1.set_offsets(np.c_[x_disp_1, y_shape_1])
-          points_2.set_offsets(np.c_[x_disp_2, y_shape_2])
-          #line_1.set_data(x_disp_1, y_shape_1)
-          #line_2.set_data(x_disp_2, y_shape_2)
-          
           return points_1, points_2
+
 
 
 
@@ -98,6 +81,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
