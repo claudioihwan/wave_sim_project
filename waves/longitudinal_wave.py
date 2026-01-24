@@ -18,6 +18,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   num_coils_1 = (2 * np.pi / wavelength_1)  # rad/satuan untuk pegas 1
   num_coils_2 = (2 * np.pi / wavelength_2)  # rad/satuan untuk pegas 2
   x0 = np.linspace(0, 10, 80)  # Posisi x sepanjang pegas
+  colors = ["tab:blue" if i % 2 == 0 else "tab:red" for i in range(len(x))]
+
 
 
   # Fungsi gelombang longitudinal
@@ -80,6 +82,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
