@@ -57,8 +57,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           omega1 = speed_1 * k1
           omega2 = speed_2 * k2
 
-          u1 = 0.8 * amplitude_1 * np.sin(k1 * x_base - omega1 * t)
-          u2 = 0.8 * amplitude_2 * np.sin(k2 * x_base - omega2 * t)
+          u1 = 4* amplitude_1 * np.sin(k1 * x_base - omega1 * t)
+          u2 = 4* amplitude_2 * np.sin(k2 * x_base - omega2 * t)
           #u1 = 0.2*amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
           #u2 = 0.2*amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
 
@@ -85,6 +85,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
