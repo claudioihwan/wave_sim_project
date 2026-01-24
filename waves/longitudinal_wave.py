@@ -17,7 +17,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   #num_coils = 20     # Jumlah lilitan pegas
   num_coils_1 = (2 * np.pi / wavelength_1)  # rad/satuan untuk pegas 1
   num_coils_2 = (2 * np.pi / wavelength_2)  # rad/satuan untuk pegas 2
-  x = np.linspace(0, 10, 200)  # Posisi x sepanjang pegas
+  x = np.linspace(0, 10, 50)  # Posisi x sepanjang pegas
   np.random.seed(0)
   jitter = 0.05 * np.random.uniform(-1, 1, size=len(x))
 
@@ -36,8 +36,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       ax.set_xticks(np.arange(0,grid_max+1,1))
       ax.set_yticks(np.arange(-5,5,1))
       ax.set_title('Animasi Gelombang Longitudinal')
-      points_1 = ax.scatter([], [], s=30, c='b')
-      points_2 = ax.scatter([], [], s=30, c='r')
+      points_1 = ax.scatter([], [], s=20, c='b')
+      points_2 = ax.scatter([], [], s=20, c='r')
       #line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
       #line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
       ax.legend()
@@ -48,7 +48,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
-          t = frame / 20.0 * 0.2
+          t = frame / 20.0 * 0.3
           
           # Bilangan gelombang (rad/satuan) langsung dari λ
           k1 = 2 * np.pi / wavelength_1
@@ -61,8 +61,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           omega1 = speed_1 * k1
           omega2 = speed_2 * k2
 
-          u1 = 1.8* amplitude_1 * np.sin(k1 * x_base - omega1 * t)
-          u2 = 1.8* amplitude_2 * np.sin(k2 * x_base - omega2 * t)
+          u1 = 0.8* amplitude_1 * np.sin(k1 * x_base - omega1 * t)
+          u2 = 0.8* amplitude_2 * np.sin(k2 * x_base - omega2 * t)
 
 
           #u1 = 0.2*amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
@@ -98,6 +98,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
