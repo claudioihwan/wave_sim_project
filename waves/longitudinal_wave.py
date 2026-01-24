@@ -39,8 +39,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       ax.set_title('Animasi Gelombang Longitudinal')
       #points_1 = ax.scatter([], [], s=30, c='b')
       #points_2 = ax.scatter([], [], s=30, c='r')
-      points_1 = ax.scatter(x, np.zeros_like(x) + 4, c=colors, s=30)
-      points_2 = ax.scatter(x, np.zeros_like(x) - 4, c=colors, s=30)
+      points_1 = ax.scatter(x, np.zeros_like(x0) + 4, c=colors, s=30)
+      points_2 = ax.scatter(x, np.zeros_like(x0) - 4, c=colors, s=30)
 
       #line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
       #line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
@@ -85,6 +85,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
