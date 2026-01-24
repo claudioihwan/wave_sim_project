@@ -34,8 +34,10 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       ax.set_xticks(np.arange(0,grid_max+1,1))
       ax.set_yticks(np.arange(-5,5,1))
       ax.set_title('Animasi Gelombang Longitudinal')
-      line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
-      line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
+      points_1 = ax.scatter([], [], s=30, c='b')
+      points_2 = ax.scatter([], [], s=30, c='r')
+      #line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
+      #line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
       ax.legend()
       #ax.set_aspect('equal', adjustable='box')
       fig.tight_layout()
@@ -59,6 +61,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
           u1 = 1.8* amplitude_1 * np.sin(k1 * x_base - omega1 * t)
           u2 = 1.8* amplitude_2 * np.sin(k2 * x_base - omega2 * t)
+
+
           #u1 = 0.2*amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
           #u2 = 0.2*amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
 
@@ -75,10 +79,12 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           
           
           # Update data
-          line_1.set_data(x_disp_1, y_shape_1)
-          line_2.set_data(x_disp_2, y_shape_2)
+          points_1.set_offsets(np.c_[x_disp_1, y_shape_1])
+          points_2.set_offsets(np.c_[x_disp_2, y_shape_2])
+          #line_1.set_data(x_disp_1, y_shape_1)
+          #line_2.set_data(x_disp_2, y_shape_2)
           
-          return line_1, line_2
+          return points_1, points_2
 
 
 
@@ -87,6 +93,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
