@@ -17,7 +17,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   #num_coils = 20     # Jumlah lilitan pegas
   num_coils_1 = (2 * np.pi / wavelength_1)  # rad/satuan untuk pegas 1
   num_coils_2 = (2 * np.pi / wavelength_2)  # rad/satuan untuk pegas 2
-  x0 = np.linspace(0, 10, 80)  # Posisi x sepanjang pegas
+  x0 = np.linspace(0, 10, 40)  # Posisi x sepanjang pegas
   colors = ["tab:blue" if i % 2 == 0 else "tab:red" for i in range(len(x0))]
 
 
@@ -39,8 +39,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       ax.set_title('Animasi Gelombang Longitudinal')
       #points_1 = ax.scatter([], [], s=30, c='b')
       #points_2 = ax.scatter([], [], s=30, c='r')
-      points_1 = ax.scatter(x0, np.zeros_like(x0) + 4, c=colors, s=30)
-      points_2 = ax.scatter(x0, np.zeros_like(x0) - 4, c=colors, s=30)
+      points_1 = ax.scatter(x0, np.zeros_like(x0) + 4, c=colors, s=40)
+      points_2 = ax.scatter(x0, np.zeros_like(x0) - 4, c=colors, s=40)
 
       #line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
       #line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
@@ -81,10 +81,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
 
-      ani = animation.FuncAnimation(fig, update, frames=120, interval=50, blit=True)
+      ani = animation.FuncAnimation(fig, update, frames=150, interval=60, blit=True)
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
