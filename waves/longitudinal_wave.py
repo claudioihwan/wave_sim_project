@@ -18,6 +18,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   num_coils_1 = (2 * np.pi / wavelength_1)  # rad/satuan untuk pegas 1
   num_coils_2 = (2 * np.pi / wavelength_2)  # rad/satuan untuk pegas 2
   x = np.linspace(0, 10, 200)  # Posisi x sepanjang pegas
+  np.random.seed(0)
+  jitter = 0.05 * np.random.uniform(-1, 1, size=len(x))
 
   # Fungsi gelombang longitudinal
   def wave_func(x, t, speed, frequency, wavelength, amplitude):
@@ -72,8 +74,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
         
           # Bentuk pegas: sinus kecil untuk memberi efek lilitan
           coil_freq = 8
-          y_shape_1 = 0.4 * np.sin(coil_freq * x_disp_1) + 4
-          y_shape_2 = 0.4 * np.sin(coil_freq * x_disp_2) - 4
+          #y_shape_1 = 0.4 * np.sin(coil_freq * x_disp_1) + 4
+          #y_shape_2 = 0.4 * np.sin(coil_freq * x_disp_2) - 4
+          y_shape_1 = np.zeros_like(x_disp_1) + 4 + jitter
+          y_shape_2 = np.zeros_like(x_disp_2) - 4 + jitter
+
           #y_shape_1 = 0.3 * np.sin(20 * np.pi * x_disp_1 / wavelength_1) + 4
           #y_shape_2 = 0.3 * np.sin(20 * np.pi * x_disp_2 / wavelength_2) - 4
           
@@ -93,6 +98,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
