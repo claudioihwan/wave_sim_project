@@ -48,7 +48,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
-          t = frame / 10.0
+          t = frame / 20.0
           
           # Bilangan gelombang (rad/satuan) langsung dari λ
           k1 = 2 * np.pi / wavelength_1
@@ -94,10 +94,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
 
-      ani = animation.FuncAnimation(fig, update, frames=100, interval=100, blit=True)
+      ani = animation.FuncAnimation(fig, update, frames=120, interval=50, blit=True)
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
