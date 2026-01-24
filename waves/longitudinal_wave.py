@@ -48,7 +48,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
-          t = frame / 20.0
+          t = frame / 10.0
           
           # Bilangan gelombang (rad/satuan) langsung dari λ
           k1 = 2 * np.pi / wavelength_1
@@ -73,7 +73,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           x_disp_2 = x_base + u2
         
           # Bentuk pegas: sinus kecil untuk memberi efek lilitan
-          coil_freq = 8
+
           #y_shape_1 = 0.4 * np.sin(coil_freq * x_disp_1) + 4
           #y_shape_2 = 0.4 * np.sin(coil_freq * x_disp_2) - 4
           y_shape_1 = np.zeros_like(x_disp_1) + 4 + jitter
@@ -94,10 +94,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
 
-      ani = animation.FuncAnimation(fig, update, frames=80, interval=60, blit=True)
+      ani = animation.FuncAnimation(fig, update, frames=100, interval=100, blit=True)
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
