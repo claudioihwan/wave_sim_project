@@ -29,15 +29,15 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   
       ax.set_xlim(0, 10)
       ax.set_ylim(-5, 5)
-      ax.set_xlabel('t')
-      ax.set_ylabel('y')
+      ax.set_xlabel('Posisi X')
+      ax.set_ylabel('Posisi Y')
       ax.set_xticks(np.arange(0,grid_max+1,1))
       ax.set_yticks(np.arange(-5,5,1))
       ax.set_title('Animasi Gelombang Longitudinal')
       line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
       line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
       ax.legend()
-      ax.set_aspect('equal', adjustable='box')
+      #ax.set_aspect('equal', adjustable='box')
       fig.tight_layout()
       plt.grid(True, color='k', linestyle='-', linewidth=0.5)
 
@@ -54,8 +54,13 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           x_base = x
           
           # Pergeseran longitudinal (maju-mundur sepanjang x)
-          u1 = amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
-          u2 = amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
+          omega1 = speed_1 * k1
+          omega2 = speed_2 * k2
+
+          u1 = 0.2 * amplitude_1 * np.sin(k1 * x_base - omega1 * t)
+          u2 = 0.2 * amplitude_2 * np.sin(k2 * x_base - omega2 * t)
+          #u1 = 0.2*amplitude_1 * np.sin(k1 * x_base - 2 * np.pi * frequency_1 * t)
+          #u2 = 0.2*amplitude_2 * np.sin(k2 * x_base - 2 * np.pi * frequency_2 * t)
 
                   # Geser titik pegas di arah x sesuai gelombang longitudinal
           x_disp_1 = x_base + u1
@@ -78,6 +83,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
