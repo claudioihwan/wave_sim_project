@@ -23,8 +23,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
   # Fungsi gelombang longitudinal
-  def wave_func(x, t, speed, frequency, wavelength, amplitude):
-      return amplitude * np.sin(2 * np.pi * frequency * (x / wavelength - speed * t))
+  def wave_func(x0, t, speed, frequency, wavelength, amplitude):
+      return amplitude * np.sin(2 * np.pi * frequency * (x0 / wavelength - speed * t))
 
   # Fungsi untuk membuat animasi pegas
   def create_animation():
@@ -85,6 +85,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
