@@ -79,6 +79,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
      
 
       def update(frame):
+          nonlocal x1, x2, v1, v2
           t = frame * 0.02
       
           k1 = 2 * np.pi / wavelength_1
@@ -141,6 +142,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
