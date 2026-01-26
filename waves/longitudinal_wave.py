@@ -32,6 +32,15 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
   # Fungsi untuk membuat animasi pegas
   def create_animation():
+      x1 = x_eq.copy()
+      x2 = x_eq.copy()
+      
+      v1 = np.zeros_like(x1)
+      v2 = np.zeros_like(x2)
+      
+      k_spring = 50.0
+      dt = 0.02
+
       fig, ax = plt.subplots()
   
       ax.set_xlim(0, 10)
@@ -63,6 +72,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
                   x[i+1] = mid + min_dist/2
           return x
 
+      x1 = x_eq.copy()
+      v1 = np.zeros_like(x1)
+      
+      k_spring = 50.0    # kekakuan (besar = keras, langsung mantul)
+      dt = 0.02          # time step kecil → anti jeda
 
      
 
@@ -75,22 +89,44 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           omega1 = 2 * np.pi * frequency_1
           omega2 = 2 * np.pi * frequency_2
       
-          # simpangan kecil (WAJIB kecil!)
-          dx1 = 0.25 * amplitude_1 * np.sin(k1 * x_eq - omega1 * t)
-          dx2 = 0.25 * amplitude_2 * np.sin(k2 * x_eq - omega2 * t)
-      
-          # posisi partikel = getaran sekitar titik setimbang
-          x1 = x_eq + dx1
-          x2 = x_eq + dx2
+          force1 = np.zeros_like(x1)
+          force2 = np.zeros_like(x2)
+          
+          # === gaya pegas antar partikel ===
+          for i in range(1, len(x1)-1):
+              f1_left  = x1[i] - x1[i-1] - dx_eq
+              f1_right = x1[i+1] - x1[i] - dx_eq
+              force1[i] = -k_spring * (f1_left - f1_right)
+          
+              f2_left  = x2[i] - x2[i-1] - dx_eq
+              f2_right = x2[i+1] - x2[i] - dx_eq
+              force2[i] = -k_spring * (f2_left - f2_right)
+          
+          # === sumber getaran (gelombang masuk) ===
+          x1[0] = x_eq[0] + 0.4 * np.sin(2*np.pi*frequency_1 * t)
+          x2[0] = x_eq[0] + 0.4 * np.sin(2*np.pi*frequency_2 * t)
+          
+          # === integrasi ===
+          v1 += force1 * dt
+          v2 += force2 * dt
+          
+          x1 += v1 * dt
+          x2 += v2 * dt
 
-          x1 = apply_constraint(x1)
-          x2 = apply_constraint(x2)
+          for i in range(len(x1)-1):
+              if x1[i+1] - x1[i] < min_dist:
+                  mid = 0.5 * (x1[i] + x1[i+1])
+                  x1[i]   = mid - min_dist/2
+                  x1[i+1] = mid + min_dist/2
+                  v1[i] = v1[i+1] = 0
+          
+              if x2[i+1] - x2[i] < min_dist:
+                  mid = 0.5 * (x2[i] + x2[i+1])
+                  x2[i]   = mid - min_dist/2
+                  x2[i+1] = mid + min_dist/2
+                  v2[i] = v2[i+1] = 0
 
-      
-          # JANGAN BIARKAN PARTIKEL SALING LEWAT
-          x1 = np.maximum.accumulate(x1)
-          x2 = np.maximum.accumulate(x2)
-      
+
           # y tetap (anti bukit-lembah)
           y1 = np.zeros_like(x1) + 4
           y2 = np.zeros_like(x2) - 4
@@ -107,6 +143,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
