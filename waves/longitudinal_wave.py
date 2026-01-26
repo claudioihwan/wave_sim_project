@@ -63,20 +63,18 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       plt.grid(True, color='k', linestyle='-', linewidth=0.5)
 
 
-      def apply_constraint(x):
-          for i in range(len(x) - 1):
-              d = x[i+1] - x[i]
-              if d < min_dist:
-                  mid = 0.5 * (x[i] + x[i+1])
-                  x[i]   = mid - min_dist/2
-                  x[i+1] = mid + min_dist/2
-          return x
 
       x1 = x_eq.copy()
+      x2 = x_eq.copy()
+        
       v1 = np.zeros_like(x1)
-      
-      k_spring = 50.0    # kekakuan (besar = keras, langsung mantul)
-      dt = 0.02          # time step kecil → anti jeda
+      v2 = np.zeros_like(x2)
+        
+      dx_eq = x_eq[1] - x_eq[0]
+      min_dist = 0.9 * dx_eq
+        
+      k_spring = 80.0
+      dt = 0.02
 
      
 
@@ -143,6 +141,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
