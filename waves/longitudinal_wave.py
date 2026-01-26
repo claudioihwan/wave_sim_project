@@ -18,6 +18,10 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   num_coils_1 = (2 * np.pi / wavelength_1)  # rad/satuan untuk pegas 1
   num_coils_2 = (2 * np.pi / wavelength_2)  # rad/satuan untuk pegas 2
   x0 = np.linspace(0, 10, 40)  # Posisi x sepanjang pegas
+  x_eq = x0.copy()
+  dx_eq = x_eq[1] - x_eq[0]
+  min_dist = 0.85 * dx_eq
+
   colors = ["tab:blue" if i % 2 == 0 else "tab:red" for i in range(len(x0))]
 
 
@@ -49,10 +53,21 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       fig.tight_layout()
       plt.grid(True, color='k', linestyle='-', linewidth=0.5)
 
+
+      def apply_constraint(x):
+      for i in range(len(x) - 1):
+          d = x[i+1] - x[i]
+          if d < min_dist:
+              mid = 0.5 * (x[i] + x[i+1])
+              x[i]   = mid - min_dist/2
+              x[i+1] = mid + min_dist/2
+      return x
+
+
      
 
       def update(frame):
-          t = frame * 0.02   # lebih lambat & stabil
+          t = frame * 0.02
       
           k1 = 2 * np.pi / wavelength_1
           k2 = 2 * np.pi / wavelength_2
@@ -60,23 +75,30 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           omega1 = 2 * np.pi * frequency_1
           omega2 = 2 * np.pi * frequency_2
       
-          # simpangan longitudinal (KECIL!)
-          dx1 = 0.3 * amplitude_1 * np.sin(k1 * x0 - omega1 * t)
-          dx2 = 0.3 * amplitude_2 * np.sin(k2 * x0 - omega2 * t)
+          # simpangan kecil (WAJIB kecil!)
+          dx1 = 0.25 * amplitude_1 * np.sin(k1 * x_eq - omega1 * t)
+          dx2 = 0.25 * amplitude_2 * np.sin(k2 * x_eq - omega2 * t)
       
-          # posisi aktual = posisi setimbang + simpangan
-          x1 = x0 + dx1
-          x2 = x0 + dx2
+          # posisi partikel = getaran sekitar titik setimbang
+          x1 = x_eq + dx1
+          x2 = x_eq + dx2
+
+          x1 = apply_constraint(x1)
+          x2 = apply_constraint(x2)
+
       
-          # Y tetap → ini kunci anti "bukit-lembah"
+          # JANGAN BIARKAN PARTIKEL SALING LEWAT
+          x1 = np.maximum.accumulate(x1)
+          x2 = np.maximum.accumulate(x2)
+      
+          # y tetap (anti bukit-lembah)
           y1 = np.zeros_like(x1) + 4
           y2 = np.zeros_like(x2) - 4
       
           points_1.set_offsets(np.c_[x1, y1])
           points_2.set_offsets(np.c_[x2, y2])
-
+      
           return points_1, points_2
-
 
 
 
@@ -85,6 +107,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
