@@ -55,13 +55,13 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
       def apply_constraint(x):
-      for i in range(len(x) - 1):
-          d = x[i+1] - x[i]
-          if d < min_dist:
-              mid = 0.5 * (x[i] + x[i+1])
-              x[i]   = mid - min_dist/2
-              x[i+1] = mid + min_dist/2
-      return x
+          for i in range(len(x) - 1):
+              d = x[i+1] - x[i]
+              if d < min_dist:
+                  mid = 0.5 * (x[i] + x[i+1])
+                  x[i]   = mid - min_dist/2
+                  x[i+1] = mid + min_dist/2
+          return x
 
 
      
@@ -107,6 +107,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
