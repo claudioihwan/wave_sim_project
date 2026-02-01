@@ -6,7 +6,7 @@ def home():
     
     <div class="mb-8 flex justify-center">
       <img
-        src="https://raw.githubusercontent.com/claudioihwan/wave_sim_project/refs/heads/main/images/logo_simulator.png"
+        src="https://raw.githubusercontent.com/claudioihwan/wave_sim_project/refs/heads/main/images/logo_simulator-Photoroom.png"
         alt="Logo Simulator Interaktif Gelombang"
         class="h-24 md:h-30"
        > 
@@ -74,6 +74,7 @@ def home():
     </div>
   </div>
   """)
+
 
 
 
