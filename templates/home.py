@@ -8,7 +8,7 @@ def home():
       <img
         src="https://raw.githubusercontent.com/claudioihwan/wave_sim_project/refs/heads/main/images/logo_simulator-Photoroom.png"
         alt="Logo Simulator Interaktif Gelombang"
-        class="h-24 md:h-30"
+        class="h-32 md:h-40"
        > 
     </div>
 
@@ -74,6 +74,7 @@ def home():
     </div>
   </div>
   """)
+
 
 
 
