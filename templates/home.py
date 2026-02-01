@@ -4,9 +4,13 @@ def home():
   return layout(f"""
   <div class="flex flex-col items-center justify-center w-full min-h-screen px-4">
     
-    <h1 class="text-3xl font-bold mb-8 text-center">
-      Gelombang Transversal dan Longitudinal
-    </h1>
+    <div class="mb-8 flex justify-center">
+      <img
+        src="https://raw.githubusercontent.com/claudioihwan/wave_sim_project/refs/heads/main/images/logo_simulator.png"
+        alt="Logo Simulator Interaktif Gelombang"
+        class="h-16 md:h-20"
+       > 
+    </div>
 
     <!-- WRAPPER DUA KOTAK -->
     <div class="flex flex-col md:flex-row gap-8 w-full md:w-3/4">
@@ -70,6 +74,7 @@ def home():
     </div>
   </div>
   """)
+
 
 
 
