@@ -18,7 +18,7 @@ def home():
         </h2>
 
         <img 
-          src="https://github.com/claudioihwan/wave_sim_project/blob/main/images/longitudinal_wave.gif" 
+          src="https://github.com/claudioihwan/wave_sim_project/blob/main/images/transverse_wave..gif" 
           alt="Gelombang Transversal"
           class="mb-4"
           width="300"
@@ -46,7 +46,7 @@ def home():
         </h2>
 
         <img 
-          src="https://www.flippingphysics.com/uploads/2/1/1/0/21103672/0319-animated-gif-1_6.gif" 
+          src="https://github.com/claudioihwan/wave_sim_project/blob/main/images/transverse_wave..gif" 
           alt="Gelombang Longitudinal"
           class="mb-4"
           width="300"
@@ -70,5 +70,6 @@ def home():
     </div>
   </div>
   """)
+
 
 
