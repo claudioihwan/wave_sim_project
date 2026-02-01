@@ -2,24 +2,71 @@ from templates.layout import layout
 
 def home():
   return layout(f"""
-                  <div class="flex flex-col items-center justify-center w-full md:w-1/2 min-h-screen md:min-h-fit border-2 border-white rounded-lg">
-                    <h1 class="w-full text-center text-3xl font-bold mt-5 mb-6">Gelombang Transversal dan Longitudinal</h1>
-                    <img src="https://www.flippingphysics.com/uploads/2/1/1/0/21103672/0319-animated-gif-1_6.gif" alt="Deskripsi Gambar" width="350" height="350">
-                    <div class="w-full flex flex-col justify-center items-center mb-6">
-                      <p class="w-full text-justify px-4">
-                        Gelombang transversal adalah gelombang yang arah rambatannya tegak lurus terhadap arah getarannya. Contoh umum gelombang transversal adalah gelombang cahaya dan gelombang pada tali yang digoyangkan ke atas dan ke bawah. Puncak dan lembah adalah bagian utama dari gelombang transversal, di mana puncak merupakan titik tertinggi dan lembah merupakan titik terendah. Gelombang ini dapat merambat melalui medium padat, tetapi tidak bisa merambat dalam zat cair atau gas karena gaya pemulihnya tidak cukup kuat. Salah satu sifat penting gelombang transversal adalah polarisasi, yang membedakannya dari gelombang longitudinal.
-                      </p>
-                      <p class="w-full text-justify px-4">
-                        <a href="/transverse-wave-sim" class="text-slate-800 bg-white font-bold">KLIK DISINI UNTUK MENUJU SIMULATOR GELOMBANG TRANSVERSAL</a>
-                      </p>
-                    </div>
-                    <div class="w-full flex flex-col justify-center items-center mb-6">
-                      <p class="w-full text-justify px-4">
-                        Gelombang longitudinal adalah gelombang yang arah rambatannya sejajar dengan arah getarannya. Contoh umum gelombang longitudinal adalah gelombang suara yang merambat melalui udara dalam bentuk rapatan dan regangan partikel. Rapatan adalah daerah dengan partikel yang berkumpul rapat, sedangkan regangan adalah daerah dengan partikel yang menyebar renggang. Gelombang ini dapat merambat melalui zat padat, cair, dan gas karena bergantung pada elastisitas medium. Berbeda dengan gelombang transversal, gelombang longitudinal tidak dapat mengalami polarisasi.  
-                      </p>
-                      <p class="w-full text-justify px-4">
-                        <a href="/longitudinal-wave-sim" class="text-slate-800 bg-white font-bold">KLIK DISINI UNTUK MENUJU SIMULATOR GELOMBANG LONGITUDINAL</a>
-                      </p>
-                    </div>
-                  </div>
-                """)
+  <div class="flex flex-col items-center justify-center w-full min-h-screen px-4">
+    
+    <h1 class="text-3xl font-bold mb-8 text-center">
+      Gelombang Transversal dan Longitudinal
+    </h1>
+
+    <!-- WRAPPER DUA KOTAK -->
+    <div class="flex flex-col md:flex-row gap-8 w-full md:w-3/4">
+
+      <!-- KOTAK GELOMBANG TRANSVERSAL -->
+      <div class="flex flex-col items-center border-2 border-white rounded-lg p-6 w-full">
+        <h2 class="text-2xl font-semibold mb-4 text-center">
+          Gelombang Transversal
+        </h2>
+
+        <img 
+          src="https://www.flippingphysics.com/uploads/2/1/1/0/21103672/0319-animated-gif-1_6.gif" 
+          alt="Gelombang Transversal"
+          class="mb-4"
+          width="300"
+        >
+
+        <p class="text-justify mb-4">
+          Gelombang transversal adalah gelombang yang arah rambatannya tegak lurus
+          terhadap arah getarannya. Contohnya adalah gelombang cahaya dan gelombang
+          pada tali. Gelombang ini memiliki puncak dan lembah serta dapat mengalami
+          polarisasi.
+        </p>
+
+        <a 
+          href="/transverse-wave-sim"
+          class="mt-auto text-slate-800 bg-white font-bold px-4 py-2 rounded hover:bg-slate-200 transition"
+        >
+          Mulai Simulasi Transversal
+        </a>
+      </div>
+
+      <!-- KOTAK GELOMBANG LONGITUDINAL -->
+      <div class="flex flex-col items-center border-2 border-white rounded-lg p-6 w-full">
+        <h2 class="text-2xl font-semibold mb-4 text-center">
+          Gelombang Longitudinal
+        </h2>
+
+        <img 
+          src="https://www.flippingphysics.com/uploads/2/1/1/0/21103672/0319-animated-gif-1_6.gif" 
+          alt="Gelombang Longitudinal"
+          class="mb-4"
+          width="300"
+        >
+
+        <p class="text-justify mb-4">
+          Gelombang longitudinal adalah gelombang yang arah rambatannya sejajar
+          dengan arah getarannya. Contohnya adalah gelombang bunyi yang merambat
+          melalui rapatan dan regangan partikel, serta tidak dapat mengalami
+          polarisasi.
+        </p>
+
+        <a 
+          href="/longitudinal-wave-sim"
+          class="mt-auto text-slate-800 bg-white font-bold px-4 py-2 rounded hover:bg-slate-200 transition"
+        >
+          Mulai Simulasi Longitudinal
+        </a>
+      </div>
+
+    </div>
+  </div>
+  """)
