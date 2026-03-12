@@ -52,8 +52,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       ax.set_title('Animasi Gelombang Longitudinal')
       #points_1 = ax.scatter([], [], s=30, c='b')
       #points_2 = ax.scatter([], [], s=30, c='r')
-      points_1 = ax.scatter(x0, np.zeros_like(x0) + 4, c=colors, s=40)
-      points_2 = ax.scatter(x0, np.zeros_like(x0) - 4, c=colors, s=40)
+      points_1 = ax.scatter(x0, np.zeros_like(x0) + 4, c=colors, s=40, label='Gelombang 1')
+      points_2 = ax.scatter(x0, np.zeros_like(x0) - 4, c=colors, s=40, label='Gelombang 2')
 
       #line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
       #line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
@@ -73,7 +73,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       dx_eq = x_eq[1] - x_eq[0]
       min_dist = 0.9 * dx_eq
         
-      k_spring = 80.0
+      k_spring = 15.0
       dt = 0.02
 
      
@@ -95,11 +95,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           for i in range(1, len(x1)-1):
               f1_left  = x1[i] - x1[i-1] - dx_eq
               f1_right = x1[i+1] - x1[i] - dx_eq
-              force1[i] = -k_spring * (f1_left - f1_right)
+              force1[i] = -k_spring * (f1_left + f1_right)
           
               f2_left  = x2[i] - x2[i-1] - dx_eq
               f2_right = x2[i+1] - x2[i] - dx_eq
-              force2[i] = -k_spring * (f2_left - f2_right)
+              force2[i] = -k_spring * (f2_left + f2_right)
           
           # === sumber getaran (gelombang masuk) ===
           x1[0] = x_eq[0] + amplitude_1 * np.sin(2*np.pi*frequency_1 * t)
@@ -142,6 +142,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
