@@ -38,8 +38,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       v1 = np.zeros_like(x1)
       v2 = np.zeros_like(x2)
       
-      k_spring = 15.0
-      dt = 0.02
+      k_spring = 5.0
+      dt = 0.005
 
       fig, ax = plt.subplots()
   
@@ -145,6 +145,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml(fps=20)
   
   return create_animation()
+
 
 
 
