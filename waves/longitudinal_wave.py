@@ -57,7 +57,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
       #line_1, = ax.plot([], [], 'b-', lw=1, label=f'y1')
       #line_2, = ax.plot([], [], 'r-', lw=1, label=f'y2')
-      ax.legend()
+      #ax.legend()
       #ax.set_aspect('equal', adjustable='box')
       fig.tight_layout()
       plt.grid(True, color='k', linestyle='-', linewidth=0.5)
@@ -142,6 +142,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
