@@ -17,7 +17,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
   #num_coils = 20     # Jumlah lilitan pegas
   num_coils_1 = (2 * np.pi / wavelength_1)  # rad/satuan untuk pegas 1
   num_coils_2 = (2 * np.pi / wavelength_2)  # rad/satuan untuk pegas 2
-  x0 = np.linspace(0, 10, 40)  # Posisi x sepanjang pegas
+  x0 = np.linspace(0, grid_max, 40)  # Posisi x sepanjang pegas
   x_eq = x0.copy()
   dx_eq = x_eq[1] - x_eq[0]
   min_dist = 0.85 * dx_eq
@@ -105,8 +105,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           force2[-1] = -k_spring * (x2[-1] - x2[-2] - dx_eq)
           
           # === sumber getaran (gelombang masuk) ===
-          x1[0] = x_eq[0] + amplitude_1 * np.sin(2*np.pi*frequency_1 * t)
-          x2[0] = x_eq[0] + amplitude_2 * np.sin(2*np.pi*frequency_2 * t)
+          #x1[0] = x_eq[0] + amplitude_1 * np.sin(2*np.pi*frequency_1 * t)
+          #x2[0] = x_eq[0] + amplitude_2 * np.sin(2*np.pi*frequency_2 * t)
+
+          x1[0] = x_eq[0] + amplitude_1 * np.sin(k1 * x_eq[0] - omega1 * t)
+          x2[0] = x_eq[0] + amplitude_2 * np.sin(k2 * x_eq[0] - omega2 * t)
           
           # === integrasi ===
           v1 += force1 * dt
@@ -145,6 +148,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml(fps=20)
   
   return create_animation()
+
 
 
 
