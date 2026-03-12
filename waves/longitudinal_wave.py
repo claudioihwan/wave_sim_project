@@ -109,7 +109,10 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
           #x2[0] = x_eq[0] + amplitude_2 * np.sin(2*np.pi*frequency_2 * t)
 
           x1[0] = x_eq[0] + amplitude_1 * np.sin(k1 * x_eq[0] - omega1 * t)
+          x1[1] = x_eq[1] + amplitude_1 * np.sin(k1 * x_eq[1] - omega1 * t)
+          
           x2[0] = x_eq[0] + amplitude_2 * np.sin(k2 * x_eq[0] - omega2 * t)
+          x2[1] = x_eq[1] + amplitude_2 * np.sin(k2 * x_eq[1] - omega2 * t)
           
           # === integrasi ===
           v1 += force1 * dt
@@ -148,6 +151,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml(fps=20)
   
   return create_animation()
+
 
 
 
