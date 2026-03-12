@@ -100,6 +100,9 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
               f2_left  = x2[i] - x2[i-1] - dx_eq
               f2_right = x2[i+1] - x2[i] - dx_eq
               force2[i] = -k_spring * (f2_left + f2_right)
+
+          force1[-1] = -k_spring * (x1[-1] - x1[-2] - dx_eq)
+          force2[-1] = -k_spring * (x2[-1] - x2[-2] - dx_eq)
           
           # === sumber getaran (gelombang masuk) ===
           x1[0] = x_eq[0] + amplitude_1 * np.sin(2*np.pi*frequency_1 * t)
@@ -142,6 +145,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       return ani.to_jshtml(fps=20)
   
   return create_animation()
+
 
 
 
