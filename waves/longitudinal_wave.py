@@ -138,10 +138,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
 
-      ani = animation.FuncAnimation(fig, update, frames=300, interval=60, blit=True)
-      return ani.to_jshtml()
+      ani = animation.FuncAnimation(fig, update, frames=60, interval=60, blit=True)
+      return ani.to_jshtml(fps=20)
   
   return create_animation()
+
 
 
 
