@@ -38,7 +38,7 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
       v1 = np.zeros_like(x1)
       v2 = np.zeros_like(x2)
       
-      k_spring = 50.0
+      k_spring = 15.0
       dt = 0.02
 
       fig, ax = plt.subplots()
@@ -102,8 +102,8 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
               force2[i] = -k_spring * (f2_left - f2_right)
           
           # === sumber getaran (gelombang masuk) ===
-          x1[0] = x_eq[0] + 0.4 * np.sin(2*np.pi*frequency_1 * t)
-          x2[0] = x_eq[0] + 0.4 * np.sin(2*np.pi*frequency_2 * t)
+          x1[0] = x_eq[0] + amplitude_1 * np.sin(2*np.pi*frequency_1 * t)
+          x2[0] = x_eq[0] + amplitude_2 * np.sin(2*np.pi*frequency_2 * t)
           
           # === integrasi ===
           v1 += force1 * dt
@@ -138,10 +138,11 @@ def longitudinal_wave(amplitude_1 = 1, amplitude_2 = 1, frequency_1 = 0.8, frequ
 
 
 
-      ani = animation.FuncAnimation(fig, update, frames=150, interval=60, blit=True)
+      ani = animation.FuncAnimation(fig, update, frames=300, interval=60, blit=True)
       return ani.to_jshtml()
   
   return create_animation()
+
 
 
 
